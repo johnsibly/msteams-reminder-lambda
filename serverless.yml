@@ -4,14 +4,21 @@ provider:
   runtime: nodejs10.x
   region: eu-west-2
   profile: custom-profile
+  role: arn:aws:iam::077508673229:role/LambdaDynamoDBAccess
 
 functions:
-  getSchedule:
-    handler: handler.processReminders
+  process:
+    handler: msteams-reminders-put.handler
     timeout: 60
     tags:
-      Description: "Queries an S3 bucket for reminders, and posts reminders to Teams at the appropriate time"
+      Description: "Adds a remidner to DynamoDB"
+      Owner: "John Sibly"
+  put:
+    handler: msteams-reminders-process.handler
+    timeout: 60
+    tags:
+      Description: "Queries DynamoDB for reminders and posts to Teams"
       Owner: "John Sibly"
     events:
-      - schedule: cron(0 0/5 * * * ?) # run every 5 minutes
+      - schedule: rate(5 minutes)
 
