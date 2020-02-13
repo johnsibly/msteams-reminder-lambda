@@ -1,0 +1,17 @@
+service: msteams-reminders
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: eu-west-2
+  profile: custom-profile
+
+functions:
+  getSchedule:
+    handler: handler.processReminders
+    timeout: 60
+    tags:
+      Description: "Queries an S3 bucket for reminders, and posts reminders to Teams at the appropriate time"
+      Owner: "John Sibly"
+    events:
+      - schedule: cron(0 0/5 * * * ?) # run every 5 minutes
+
