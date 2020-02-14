@@ -5,15 +5,8 @@ provider:
   region: eu-west-2
   profile: custom-profile
   role: arn:aws:iam::077508673229:role/LambdaDynamoDBAccess
-
 functions:
   process:
-    handler: msteams-reminders-put.handler
-    timeout: 60
-    tags:
-      Description: "Adds a remidner to DynamoDB"
-      Owner: "John Sibly"
-  put:
     handler: msteams-reminders-process.handler
     timeout: 60
     tags:
@@ -21,4 +14,11 @@ functions:
       Owner: "John Sibly"
     events:
       - schedule: rate(5 minutes)
+  put:
+    handler: msteams-reminders-put.handler
+    timeout: 60
+    tags:
+      Description: "Adds a remidner to DynamoDB"
+      Owner: "John Sibly"
+
 

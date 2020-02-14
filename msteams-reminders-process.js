@@ -27,12 +27,11 @@ function processReminder(reminder) {
     endDate.setHours(now.getHours()+1);
     
     let options = {
-      currentDate: reminder.lastTimeReminderExecuted,
+      currentDate: reminder.lastTimeReminderExecuted, 
       endDate: endDate,
       iterator: true
     };
-
-    let interval = parser.parseExpression(reminder.cronInterval, options);
+    const interval = parser.parseExpression(reminder.cronInterval, options);
 
     try {
       let nextExecutionTime = interval.next();
@@ -45,10 +44,11 @@ function processReminder(reminder) {
         console.log(reminder.reminderMessage);
         reminder.lastTimeReminderExecuted = nextDateTime;
         
+        const payload = {body: reminder};
         let lambda = new AWS.Lambda();
         let params = {
-          FunctionName: 'msteams-reminders-add', // this lambda is incorrectly named - is actually is doing a put operation 
-          Payload: JSON.stringify(reminder)
+          FunctionName: 'msteams-reminders-dev-put', 
+          Payload: JSON.stringify(payload)
         };
         
         lambda.invoke(params, function(err, data) {
