@@ -13,7 +13,7 @@ functions:
       Description: "Queries DynamoDB for reminders and posts to Teams"
       Owner: "John Sibly"
     events:
-      - schedule: rate(5 minutes)
+      - schedule: cron(0/5 * * * ? *)
   put:
     handler: msteams-reminders-put.handler
     timeout: 60
