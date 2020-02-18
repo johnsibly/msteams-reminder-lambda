@@ -1,3 +1,4 @@
+const axios = require('axios');
 const parser = require('cron-parser');
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient({region: 'eu-west-2'});
@@ -21,7 +22,7 @@ exports.handler = function(event, context, callback){
     });
 }
 
-function processReminder(reminder) {
+async function processReminder(reminder) {
     const now = new Date();
     let endDate = now;
     endDate.setHours(now.getHours()+1);
@@ -55,9 +56,50 @@ function processReminder(reminder) {
           if (err) console.log(err, err.stack); // an error occurred
           else     console.log(data);           // successful response
         });
+
+        const posted = await postReminderToTeams(reminder);
+
       }
 
     } catch (e) {
       console.log(e);
     }
+}
+
+
+async function postReminderToTeams(reminder) {
+  const card = {
+    '@type': 'MessageCard',
+    '@context': 'http://schema.org/extensions',
+    summary: 'Reminder',
+    sections: [
+      {
+        activityTitle: `${reminder.reminderMessage}`,
+      },
+    ],
+  };
+  const result = { text: reminder.reminderMessage };
+  card.sections.push(result);
+  const posted = await postToTeams(card, reminder.teamsChannelWebhook);
+  return posted;
+}
+
+async function postToTeams(card, teamsChannelWebhook) {
+  console.log(card);
+  if (teamsChannelWebhook === undefined) {
+    console.log("teamsChannelWebhook is not set");
+    return;
+  }
+
+  try {
+    const response = await axios.post(teamsChannelWebhook, card, {
+      headers: {
+        'content-type': 'application/vnd.microsoft.teams.card.o365connector',
+        'content-length': `${card.toString().length}`,
+      },
+    });
+    return `${response.status} - ${response.statusText}`;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
