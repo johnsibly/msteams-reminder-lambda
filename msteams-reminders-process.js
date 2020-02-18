@@ -68,7 +68,7 @@ async function postReminderToTeams(reminder) {
     summary: 'Reminder',
     sections: [
       {
-        activityTitle: `⏰ Reminder: ${reminder.lastTimeReminderExecuted.toLocaleTimeString('en-GB')} ⏰`,
+        activityTitle: `⏰ Reminder: ${reminder.lastTimeReminderExecuted.toLocaleTimeString('en-GB').substring(0,5)} ⏰`,
       },
     ],
   };
