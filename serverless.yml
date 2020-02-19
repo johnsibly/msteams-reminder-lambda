@@ -20,5 +20,10 @@ functions:
     tags:
       Description: "Adds a remidner to DynamoDB"
       Owner: "John Sibly"
-
+  get:
+    handler: msteams-reminders-get.handler
+    timeout: 60
+    tags:
+      Description: "Queries for reminders omitting teamsChannelWebhook"
+      Owner: "John Sibly"
 

@@ -26,6 +26,13 @@ async function processReminder(reminder) {
     let endDate = new Date(now);
     endDate.setHours(now.getHours()+1);
     
+    // This won't exist for new reminders
+    if (!reminder.hasOwnProperty('lastTimeReminderExecuted')) {
+      let timeInPast = new Date(now);
+      timeInPast.setHours(now.getHours()-1);
+      reminder.lastTimeReminderExecuted = timeInPast;
+    }
+
     let options = {
       currentDate: reminder.lastTimeReminderExecuted, 
       endDate: endDate,
@@ -65,15 +72,17 @@ async function postReminderToTeams(reminder) {
   const card = {
     '@type': 'MessageCard',
     '@context': 'http://schema.org/extensions',
+    'themeColor': "0072C6", // light blue
     summary: 'Reminder',
     sections: [
       {
-        activityTitle: `⏰ Reminder: ${reminder.lastTimeReminderExecuted.toLocaleTimeString('en-GB').substring(0,5)} ⏰`,
+        // activityTitle: `⏰ Reminder: ${reminder.lastTimeReminderExecuted.toLocaleTimeString('en-GB').substring(0,5)} ⏰`,
+        text: reminder.reminderMessage,
       },
     ],
   };
-  const result = { text: reminder.reminderMessage };
-  card.sections.push(result);
+  // const result = { text: reminder.reminderMessage };
+  // card.sections.push(result);
   const posted = await postToTeams(card, reminder.teamsChannelWebhook);
   return posted;
 }
