@@ -1,7 +1,8 @@
 {
   "name": "msteams-reminder-lambda",
+  "repository": "github:johnsibly/msteams-reminder-lambda",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lambdas to manage reminders and posts to Teams at a specified time",
   "main": "handler.js",
   "dependencies": {
     "aws-sdk": "^2.617.0",
