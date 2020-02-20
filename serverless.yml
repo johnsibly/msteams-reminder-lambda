@@ -5,20 +5,25 @@ provider:
   region: eu-west-2
   profile: custom-profile
   role: arn:aws:iam::077508673229:role/LambdaDynamoDBAccess
-
 functions:
   process:
-    handler: msteams-reminders-put.handler
-    timeout: 60
-    tags:
-      Description: "Adds a remidner to DynamoDB"
-      Owner: "John Sibly"
-  put:
     handler: msteams-reminders-process.handler
     timeout: 60
     tags:
       Description: "Queries DynamoDB for reminders and posts to Teams"
       Owner: "John Sibly"
     events:
-      - schedule: rate(5 minutes)
+      - schedule: cron(0/5 * * * ? *)
+  put:
+    handler: msteams-reminders-put.handler
+    timeout: 60
+    tags:
+      Description: "Adds a remidner to DynamoDB"
+      Owner: "John Sibly"
+  get:
+    handler: msteams-reminders-get.handler
+    timeout: 60
+    tags:
+      Description: "Queries for reminders omitting teamsChannelWebhook"
+      Owner: "John Sibly"
 
