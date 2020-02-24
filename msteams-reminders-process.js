@@ -76,13 +76,10 @@ async function postReminderToTeams(reminder) {
     summary: 'Reminder',
     sections: [
       {
-        // activityTitle: `⏰ Reminder: ${reminder.lastTimeReminderExecuted.toLocaleTimeString('en-GB').substring(0,5)} ⏰`,
-        text: reminder.reminderMessage,
+        activityTitle: reminder.reminderMessage,
       },
     ],
   };
-  // const result = { text: reminder.reminderMessage };
-  // card.sections.push(result);
   const posted = await postToTeams(card, reminder.teamsChannelWebhook);
   return posted;
 }
