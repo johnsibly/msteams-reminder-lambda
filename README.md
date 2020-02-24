@@ -20,6 +20,9 @@ Install dependencies
 npm install
 ```
 
+Currently you need to create a Dynamo db table manually called msteams-reminders, and a AIM role called LambdaDynamoDBAccess to allow access to the DB from the Lambda. I've also manually created API Gateway instances for the put and get lambdas at this stage.
+
+
 ## Running locally
 
 ```sh
@@ -30,7 +33,7 @@ serverless invoke local -f process -l
 ## Deployment
 
 ```sh
-serverless deploy -v
+serverless deploy
 ```
 
 I used this icon for my reminder webhook
