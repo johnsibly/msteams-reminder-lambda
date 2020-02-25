@@ -36,5 +36,13 @@ serverless invoke local -f process -l
 serverless deploy
 ```
 
+## Adding reminders
+
+Currently there are two options for adding reminders
+1. If API Gateway is set up, you can send a PUT request to the PUT endpoint, specificing the CRON syntax, message, and webhookURL
+2. Manually add an entry to DynamoDB (risky)
+
+I recommend validating CRON syntax using https://crontab.guru/ beforehand to check it matches expections.
+
 I used this icon for my reminder webhook
 http://icons.iconarchive.com/icons/vexels/office/1024/alarm-clock-icon.png
