@@ -46,3 +46,9 @@ I recommend validating CRON syntax using https://crontab.guru/ beforehand to che
 
 I used this icon for my reminder webhook
 http://icons.iconarchive.com/icons/vexels/office/1024/alarm-clock-icon.png
+
+## List current reminders
+
+```sh
+curl https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders
+```
