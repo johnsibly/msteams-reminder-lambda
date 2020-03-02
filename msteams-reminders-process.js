@@ -27,7 +27,7 @@ async function processReminder(reminder) {
     endDate.setHours(now.getHours()+1);
     
     // This won't exist for new reminders
-    if (!reminder.hasOwnProperty('lastTimeReminderExecuted')) {
+    if (!reminder.hasOwnProperty('lastTimeReminderExecuted') || !reminder.lastTimeReminderExecuted) {
       let timeInPast = new Date(now);
       timeInPast.setHours(now.getHours()-1);
       reminder.lastTimeReminderExecuted = timeInPast;

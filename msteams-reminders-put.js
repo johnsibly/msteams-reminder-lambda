@@ -4,23 +4,18 @@ const uuidv4 = require('uuid/v4');
 AWS.config.update({region: `eu-west-2`});
 
 exports.handler = (event, context, callback) => {
-
-    console.log(event);
-    console.log('Entered msteams-reminders-put ' + event);
-
-    const params = event.body;
     const TableName = "msteams-reminders";
 
-    const Item = {  "lastTimeReminderExecuted": params.lastTimeReminderExecuted,
-                    "cronInterval": params.cronInterval,
-                    "reminderMessage": params.reminderMessage,
-                    "teamsChannelWebhook": params.teamsChannelWebhook,
-                    "id": params.id === undefined ? uuidv4() : params.id    
-                 };
+    const reminder = event.body;
+    const Item = {  "lastTimeReminderExecuted": !reminder.hasOwnProperty('lastTimeReminderExecuted') ? undefined : reminder.lastTimeReminderExecuted,
+                    "cronInterval": reminder.cronInterval,
+                    "reminderMessage": reminder.reminderMessage,
+                    "teamsChannelWebhook": reminder.teamsChannelWebhook,
+                    "id": reminder.id === undefined ? uuidv4() : reminder.id    
+                };
     dynamo.put({TableName, Item}, function (err, data) {
         if (err) {
-            console.log(`error`, event + err);
-            callback(event + err, null);
+            callback(`event: ${event}, err: ${err}`, null);
         } else {
             callback(null, Item);
         }
