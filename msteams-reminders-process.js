@@ -32,9 +32,14 @@ async function processReminder(reminder) {
       timeInPast.setDate(now.getDate() - 7);
       reminder.lastTimeReminderExecuted = timeInPast;
     }
+    // This won't exist for new reminders
+    if (!reminder.hasOwnProperty('timeZone') || !reminder.timeZone) {
+      reminder.timeZone = 'Europe/London';
+    }
 
     let options = {
       currentDate: reminder.lastTimeReminderExecuted, 
+      tz: reminder.timeZone,
       endDate: endDate,
       iterator: true
     };

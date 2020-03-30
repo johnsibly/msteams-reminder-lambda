@@ -11,6 +11,7 @@ exports.handler = (event, context, callback) => {
                     "cronInterval": reminder.cronInterval,
                     "reminderMessage": reminder.reminderMessage,
                     "teamsChannelWebhook": reminder.teamsChannelWebhook,
+                    "timeZone": !reminder.hasOwnProperty('timeZone') ? undefined : reminder.timeZone,
                     "id": reminder.id === undefined ? uuidv4() : reminder.id    
                 };
     dynamo.put({TableName, Item}, function (err, data) {
