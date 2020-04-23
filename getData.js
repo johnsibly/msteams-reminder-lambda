@@ -13,7 +13,7 @@ async function getReminders() {
 }
 
 function printTable(info) {
-  let table = '<table style="width:100%">';
+  let table = '<table style="width:100%" id="reminders">';
   table += '<tr>';
   table += '<th>Reminder Message</th>';
   table += '<th>Cron Interval</th>';
