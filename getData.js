@@ -1,9 +1,4 @@
-async function getReminders() {
-  const Reminders = axios.get(
-    'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders'
-  );
-  const response = await Reminders;
-  const info = response.data.Items;
+function createTable(info) {
   const table = document.getElementById('reminders');
   info.forEach(item => {
     let newRow = document.createElement('tr');
@@ -18,5 +13,13 @@ async function getReminders() {
     newRow.append(newCell3);
     table.append(newRow);
   });
+}
+async function getReminders() {
+  const Reminders = axios.get(
+    'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders'
+  );
+  const response = await Reminders;
+  const info = response.data.Items;
+  createTable(info);
 }
 getReminders();
