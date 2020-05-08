@@ -1,0 +1,40 @@
+body {
+    background-color: white;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: black;
+}
+table {
+    background-color: white;
+    border-spacing: 0;
+    border-collapse: separate;
+
+tr td {
+    border: 1px solid black;
+    height: 50px;
+    overflow: hidden;
+    padding: 10px 10px;
+}
+.remindersItems {
+    width: 100%;
+}
+th {
+    width: 25%;
+    font-size: 24px;
+    height: 25%;
+    padding: 10px 10px;
+    border: 1px solid black;
+}
+tr {
+    border-style: groove;
+    border-color: green;
+    display: table-row;
+    vertical-align: inherit;
+}
+td {
+    width: 25%;
+    font-size: 18px;
+    height: 25%;
+}
+h1 {
+    color: black;
+}
