@@ -7,27 +7,18 @@
   <title>Reminders</title>
 
   <style>
-    /* body {
-      background-color: #673AB7;
-      color: white;
-    } */
-    /*
-    ul {
-      list-style: none;
-    }
-    */
-    #reminders {
+    table {
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       border-collapse: collapse;
       width: 100%;
     }
-    #reminders td, #reminders th {
+    table td, table th {
       border: 1px solid #ddd;
       padding: 8px;
     }
-    #reminders tr:nth-child(even){background-color: #f2f2f2;}
-    #reminders tr:hover {background-color: #ddd;}
-    #reminders th {
+    table tr:nth-child(even){background-color: #f2f2f2;}
+    table tr:hover {background-color: #ddd;}
+    table th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
@@ -37,16 +28,33 @@
   </style>
 </head>
 <body>
-
   <div>
     <h1>Reminders</h1>
-    <ul>
-      
-    </ul>
+    <h2>Add or edit a reminder</h2>
+    <form id="edit_reminder_form">
+      <table style="width:100%" id="edit_reminder">
+      <tr>
+        <th>Reminder Message</th>
+        <th>Cron Interval</th>
+        <th>Last Time Reminder Executed</th>
+        <th>Timezone</th>
+        <th>Teams Webhook</th>
+      </tr>
+      <tr>
+        <td><input type="text" id="message" name="edit_reminder_form"></td>
+        <td><input type="text" id="cron" name="edit_reminder_form"></td>
+        <td><input type="text" id="lastTime" name="edit_reminder_form"></td>
+        <td><input type="text" id="timeZone" name="edit_reminder_form"></td>
+        <td><input type="text" id="webhook" name="edit_reminder_form"></td>
+      </tr>
+      </table>
+      <input id="submit" type="submit" value="Submit">
+    </form>
   </div>
+  <br>
+  <h2>Select a reminder to edit it above</h2>
   <div id="text"></div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="getData.js" defer></script>
-
 </body>
 </html>

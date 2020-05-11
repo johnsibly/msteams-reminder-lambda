@@ -2,9 +2,10 @@ const message = [];
 const time = [];
 const lastTime = [];
 const text = document.getElementById("text");
+const remindersUrl = 'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders';
 
 async function getReminders() {
-  const Reminders = axios.get('https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders')
+  const Reminders = axios.get(remindersUrl)
   const response = await Reminders;
   const info = response.data.Items;
   
@@ -31,23 +32,65 @@ function printTable(info) {
   });
   table += '</table>';
   text.innerHTML += table;
+
+  addHandlers();
 }
 
-getReminders();
+function submit(event) {
+  message = document.getElementById("message").value;
+  cron = document.getElementById("cron").value;
+  lastTime = document.getElementById("lastTime").value;
+  timeZone = document.getElementById("timeZone").value;
 
+  try {
+    const reminder = {"body": {"cronInterval": cron, "reminderMessage": message, "timeZone": "Europe/London", "teamsChannelWebhook": "https://mywebhookurl"}};
+    console.log(reminder);
+    /*
+    const response = await axios.put(remindersUrl, reminder, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
 
-// do i want to access every items key individually? i.e. all the reminderMessage then all the cronInterval? include lastTimeReminderExecuted?
+    return `${response.status} - ${response.statusText}`;
+    */
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
-// text.innerHTML += finalResult;
+function addHandlers() {
+  const table = document.getElementById("reminders");
+  const rows = table.getElementsByTagName("tr");
+  for (i = 0; i < rows.length; i++) {
+    let currentRow = table.rows[i];
+    const createClickHandler = function(row) {
+      return function() {
+        const message = row.getElementsByTagName("td")[0].innerHTML;
+        const cron = row.getElementsByTagName("td")[1].innerHTML;
+        const lastTime = row.getElementsByTagName("td")[2].innerHTML;
+        const timeZone = row.getElementsByTagName("td")[3].innerHTML;
 
-// Object.defineProperties(info).forEach
+        console.log(`${message}, ${cron}, ${lastTime}, ${timeZone}`);
 
-// console.log(typeof info)
+        document.getElementById("message").value = message;
+        document.getElementById("cron").value = cron;
+        document.getElementById("lastTime").value = lastTime;
+        document.getElementById("timeZone").value = timeZone;
+      };
+    };
+    currentRow.onclick = createClickHandler(currentRow);
+  }
+  event.preventDefault();
 
-// data.push(info)
+  const submitButton = document.getElementById('submit');
+  submitButton.addEventListener('submit', submit);
+}
 
-// , console.log(JSON.stringify(item.reminderMessage))
+function initialise() {
+  getReminders();
+  
+}
 
-// , console.log(JSON.stringify(item.cronInterval))
+initialise();
 
-// , console.log(JSON.stringify(item.lastTimeReminderExecuted))
