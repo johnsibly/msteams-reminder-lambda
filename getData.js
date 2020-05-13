@@ -1,3 +1,7 @@
+"use strict";
+require("babel-core/register");
+require("babel-polyfill");
+
 function renderCellText(cellContent) {
   let newCell1 = document.createElement('td');
   newCell1.innerText = cellContent;
