@@ -7,6 +7,7 @@
   "dependencies": {
     "aws-sdk": "^2.617.0",
     "axios": "^0.19.2",
+    "cron-converter": "^1.0.0",
     "cron-parser": "^2.13.0",
     "uuid": "^3.4.0"
   },

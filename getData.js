@@ -1,6 +1,7 @@
-"use strict";
-require("babel-core/register");
-require("babel-polyfill");
+// "use strict";
+// require("babel-core/register");
+// require("babel-polyfill");
+var parser = require('cron-parser');
 
 function renderCellText(cellContent) {
   let newCell1 = document.createElement('td');
@@ -10,11 +11,14 @@ function renderCellText(cellContent) {
 
 function createTable(info) {
   const table = document.getElementById('reminders');
+  
   info.forEach(item => {
     let newRow = document.createElement('tr');
+    let cron = parser.parseExpression(item.cronInterval);
+    
     newRow.append(
       renderCellText(item.reminderMessage),
-      renderCellText(item.cronInterval),
+      renderCellText(cron.next().toString()),
       renderCellText(item.lastTimeReminderExecuted)
     );
     table.append(newRow);
