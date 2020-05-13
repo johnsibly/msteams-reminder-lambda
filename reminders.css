@@ -7,12 +7,7 @@ table {
     background-color: white;
     border-spacing: 0;
     border-collapse: separate;
-
-tr td {
-    border: 1px solid black;
-    height: 50px;
-    overflow: hidden;
-    padding: 10px 10px;
+    width: 100%;
 }
 .remindersItems {
     width: 100%;
@@ -23,10 +18,9 @@ th {
     height: 25%;
     padding: 10px 10px;
     border: 1px solid black;
+    text-align: left;
 }
 tr {
-    border-style: groove;
-    border-color: green;
     display: table-row;
     vertical-align: inherit;
 }
@@ -34,6 +28,7 @@ td {
     width: 25%;
     font-size: 18px;
     height: 25%;
+    border: 1px solid black;
 }
 h1 {
     color: black;

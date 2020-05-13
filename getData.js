@@ -15,7 +15,7 @@ function createTable(info) {
   info.forEach(item => {
     let newRow = document.createElement('tr');
     let cron = parser.parseExpression(item.cronInterval);
-    
+
     newRow.append(
       renderCellText(item.reminderMessage),
       renderCellText(cron.next().toString()),
