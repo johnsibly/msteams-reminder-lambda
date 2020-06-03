@@ -1,0 +1,35 @@
+body {
+    background-color: white;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: black;
+}
+table {
+    background-color: white;
+    border-spacing: 0;
+    border-collapse: separate;
+    width: 100%;
+}
+.remindersItems {
+    width: 100%;
+}
+th {
+    width: 25%;
+    font-size: 24px;
+    height: 25%;
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: left;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+}
+td {
+    width: 25%;
+    font-size: 18px;
+    height: 25%;
+    border: 1px solid black;
+}
+h1 {
+    color: black;
+}

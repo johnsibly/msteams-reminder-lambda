@@ -1,9 +1,11 @@
 # package directories
 node_modules
 jspm_packages
+dist
 
 # Serverless directories
 .serverless
 
 # Secrets
 .env
+.cache

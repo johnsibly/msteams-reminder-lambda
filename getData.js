@@ -1,55 +1,41 @@
-const message = [];
-const time = [];
-const lastTime = [];
-const text = document.getElementById("text");
+// "use strict";
+// require("babel-core/register");
+// require("babel-polyfill");
+var parser = require('cron-parser');
 
-function printMessages() {
-  message.forEach(message => text.innerHTML += message);
+function renderCellText(cellContent) {
+  let newCell1 = document.createElement('td');
+  newCell1.innerText = cellContent;
+  return newCell1;
 }
 
-function printTime() {
-  time.forEach(time => text.innerHTML += time);
+function createTable(info) {
+  const table = document.getElementById('reminders');
+  
+  info.forEach(item => {
+    let newRow = document.createElement('tr');
+    let cron = parser.parseExpression(item.cronInterval);
+
+    newRow.append(
+      renderCellText(item.reminderMessage),
+      renderCellText(cron.next().toString()),
+      renderCellText(item.lastTimeReminderExecuted)
+    );
+    table.append(newRow);
+  });
 }
 
-function printLastTimeExecuted() {
-  lastTime.forEach(previous => text.innerHTML += previous);
+async function getInfo() {
+  const Reminders = axios.get(
+    'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders'
+  );
+  const response = await Reminders;
+  const info = response.data.Items;
+  return info;
 }
 
 async function getReminders() {
-  const Reminders = axios.get('https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders')
-
-  const response = await Reminders;
-
-  const info = response.data.Items;
-  
-  console.log(info);
-
-  info.forEach(item => message.push(item.reminderMessage))
-
-  info.forEach(item => time.push(item.cronInterval))
-
-  info.forEach(item => lastTime.push(item.lastTimeReminderExecuted))
-
-  printMessages();
-  printTime();
-  printLastTimeExecuted()
+  const info = await getInfo();
+  createTable(info);
 }
-
 getReminders();
-
-
-// do i want to access every items key individually? i.e. all the reminderMessage then all the cronInterval? include lastTimeReminderExecuted?
-
-// text.innerHTML += finalResult;
-
-// Object.defineProperties(info).forEach
-
-// console.log(typeof info)
-
-// data.push(info)
-
-// , console.log(JSON.stringify(item.reminderMessage))
-
-// , console.log(JSON.stringify(item.cronInterval))
-
-// , console.log(JSON.stringify(item.lastTimeReminderExecuted))
