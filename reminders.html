@@ -36,25 +36,23 @@
       <tr>
         <th>Reminder Message</th>
         <th>Cron Interval</th>
-        <th>Last Time Reminder Executed</th>
         <th>Timezone</th>
         <th>Teams Webhook</th>
       </tr>
       <tr>
         <td><input type="text" id="message" name="edit_reminder_form"></td>
         <td><input type="text" id="cron" name="edit_reminder_form"></td>
-        <td><input type="text" id="lastTime" name="edit_reminder_form"></td>
         <td><input type="text" id="timeZone" name="edit_reminder_form"></td>
-        <td><input type="text" id="webhook" name="edit_reminder_form"></td>
+        <td><input type="text" id="webHookUrl" name="edit_reminder_form"></td>
       </tr>
       </table>
-      <input id="submit" type="submit" value="Submit">
+      <input type="button" value="Add reminder" id='submit' >
     </form>
   </div>
   <br>
   <h2>Select a reminder to edit it above</h2>
   <div id="text"></div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="getData.js" defer></script>
+  <script src="reminders.js" defer></script>
 </body>
 </html>
