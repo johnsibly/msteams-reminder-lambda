@@ -30,19 +30,21 @@
 <body>
   <div>
     <h1>Reminders</h1>
-    <h2>Add or edit a reminder</h2>
+    <h2>Add a reminder</h2>
     <form id="edit_reminder_form">
       <table style="width:100%" id="edit_reminder">
       <tr>
         <th>Reminder Message</th>
         <th>Cron Interval</th>
         <th>Timezone</th>
+        <!-- <th>Id</th> -->
         <th>Teams Webhook</th>
       </tr>
       <tr>
         <td><input type="text" id="message" name="edit_reminder_form"></td>
         <td><input type="text" id="cron" name="edit_reminder_form"></td>
-        <td><input type="text" id="timeZone" name="edit_reminder_form"></td>
+        <td><input type="text" id="timeZone" name="edit_reminder_form" value="Europe/London"></td>
+        <!-- <td><input type="text" id="id" name="edit_reminder_form" readonly></td> -->
         <td><input type="text" id="webHookUrl" name="edit_reminder_form"></td>
       </tr>
       </table>
@@ -50,7 +52,7 @@
     </form>
   </div>
   <br>
-  <h2>Select a reminder to edit it above</h2>
+  <h2>Existing Microsoft Teams Reminders</h2>
   <div id="text"></div>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="reminders.js" defer></script>
