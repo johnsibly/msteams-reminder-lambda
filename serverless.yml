@@ -18,7 +18,7 @@ functions:
     handler: msteams-reminders-put.handler
     timeout: 60
     tags:
-      Description: "Adds a remidner to DynamoDB"
+      Description: "Adds a reminder to DynamoDB"
       Owner: "John Sibly"
   get:
     handler: msteams-reminders-get.handler
