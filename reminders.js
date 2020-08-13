@@ -39,22 +39,23 @@ function printTable(info) {
 
 async function handleDelete(id) {
   console.log(id)
-
-  try {
-    const reminder = {"body": {"id": id}};
-    console.log(reminder);
-    
-    const response = await axios.delete(remindersUrl, {
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: reminder
-    });
-    console.log(response);
-    document.body.style.cursor = "wait";
-    setTimeout(function(){ location.reload(); }, 3000);
-  } catch (err) {
-    throw new Error(err);
+  if (confirm("Are you sure?")) {
+    try {
+      const reminder = {"body": {"id": id}};
+      console.log(reminder);
+      
+      const response = await axios.delete(remindersUrl, {
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: reminder
+      });
+      console.log(response);
+      document.body.style.cursor = "wait";
+      setTimeout(function(){ location.reload(); }, 2000);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }
 
@@ -81,7 +82,7 @@ document.getElementById('submit').onclick = async function () {
     });
     console.log(response);
     document.body.style.cursor = "wait";
-    setTimeout(function(){ location.reload(); }, 3000);
+    setTimeout(function(){ location.reload(); }, 2000);
 
   } catch (err) {
     throw new Error(err);
