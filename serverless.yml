@@ -26,4 +26,10 @@ functions:
     tags:
       Description: "Queries for reminders omitting teamsChannelWebhook"
       Owner: "John Sibly"
+  delete:
+    handler: msteams-reminders-delete.handler
+    timeout: 60
+    tags:
+      Description: "Deletes the reminder specified by the id"
+      Owner: "John Sibly"
 

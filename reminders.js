@@ -28,13 +28,35 @@ function printTable(info) {
     table += `<td>${item.lastTimeReminderExecuted}</td>`;
     table += `<td>${item.timeZone}</td>`;
     // table += `<td>${item.id}</td>`;
-    table += `<td><button type="button">Delete</button></td>`;
+    table += `<td><button type="button" name=${item.id} onclick="handleDelete(name)">Delete</button></td>`;
     table += `</tr>`;
   });
   table += '</table>';
   text.innerHTML += table;
 
   // addRowClickHandlers();
+}
+
+async function handleDelete(id) {
+  console.log(id)
+  if (confirm("Are you sure?")) {
+    try {
+      const reminder = {"body": {"id": id}};
+      console.log(reminder);
+      
+      const response = await axios.delete(remindersUrl, {
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: reminder
+      });
+      console.log(response);
+      document.body.style.cursor = "wait";
+      setTimeout(function(){ location.reload(); }, 2000);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }
 
 document.getElementById('submit').onclick = async function () {
@@ -59,6 +81,9 @@ document.getElementById('submit').onclick = async function () {
       },
     });
     console.log(response);
+    document.body.style.cursor = "wait";
+    setTimeout(function(){ location.reload(); }, 2000);
+
   } catch (err) {
     throw new Error(err);
   }
