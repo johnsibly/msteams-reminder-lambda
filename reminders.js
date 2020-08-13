@@ -44,10 +44,11 @@ async function handleDelete(id) {
     const reminder = {"body": {"id": id}};
     console.log(reminder);
     
-    const response = await axios.delete(remindersUrl, reminder, {
+    const response = await axios.delete(remindersUrl, {
       headers: {
         'content-type': 'application/json',
       },
+      data: reminder
     });
     console.log(response);
     document.body.style.cursor = "wait";
