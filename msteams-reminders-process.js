@@ -22,6 +22,7 @@ exports.handler = function(event, context, callback){
 }
 
 async function processReminder(reminder) {
+  try {
     const now = new Date();
     let endDate = new Date(now);
     endDate.setHours(now.getHours()+1);
@@ -44,32 +45,29 @@ async function processReminder(reminder) {
       iterator: true
     };
     const interval = parser.parseExpression(reminder.cronInterval, options);
-
-    try {
-      let nextExecutionTime = interval.next();
-      let nextDateTime = new Date(nextExecutionTime.value);
-      if (nextDateTime <= now) {
-        console.log(reminder.reminderMessage);
-        reminder.lastTimeReminderExecuted = nextDateTime;
-        
-        await postReminderToTeams(reminder);
-        
-        const payload = {body: reminder};
-        let lambda = new AWS.Lambda();
-        let params = {
-          FunctionName: 'msteams-reminders-dev-put', 
-          Payload: JSON.stringify(payload)
-        };
-        
-        lambda.invoke(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          else     console.log(data);           // successful response
-        });
-      }
-
-    } catch (e) {
-      console.log(e);
+    let nextExecutionTime = interval.next();
+    let nextDateTime = new Date(nextExecutionTime.value);
+    if (nextDateTime <= now) {
+      console.log(reminder.reminderMessage);
+      reminder.lastTimeReminderExecuted = nextDateTime;
+      
+      await postReminderToTeams(reminder);
+      
+      const payload = {body: reminder};
+      let lambda = new AWS.Lambda();
+      let params = {
+        FunctionName: 'msteams-reminders-dev-put', 
+        Payload: JSON.stringify(payload)
+      };
+      
+      lambda.invoke(params, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+      });
     }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 
