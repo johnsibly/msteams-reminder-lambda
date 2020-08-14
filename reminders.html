@@ -48,12 +48,20 @@
         <td><input type="text" id="webHookUrl" name="edit_reminder_form"></td>
       </tr>
       </table>
-      <input type="button" value="Add reminder" id='submit' >
+      <input type="button" value="Add reminder" id='submit'>
     </form>
   </div>
   <br>
   <h2>Existing Microsoft Teams Reminders</h2>
-  <div id="text"></div>
+  <table style="width:100%" id="reminders">
+  <tr>
+    <th>Reminder Message</th>
+    <th>Cron Interval</th>
+    <th>Last Time Reminder Executed</th>
+    <th>Timezone</th>
+    <th>Delete</th>
+  </tr>
+  </table>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="reminders.js" defer></script>
 </body>
