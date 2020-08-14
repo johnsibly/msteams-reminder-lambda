@@ -4,7 +4,11 @@
 
 Lambda(s) used to query a DynamoDB table for reminders (to water a plant for example), check based on CRON syntax whether the next reminder is due, and if so post a reminder to a pre-defined teams channel.
 The Lambda *process* runs as a cron job every 5 minutes and performans all the business logic. As a result you can't set reminders more accuratly than every 5 minutes.
-There are also Lambdas *get* and *put* for reading and writing reminders to DynamoDB.
+There are also Lambdas *get*, *put*, *delete* for reading and writing reminders to DynamoDB.
+
+## Todo notes
+I've manually set up API Gateway to sit in front if the lambdas I've created for get / put / delete - I need to add this definition into the serverless framework file (as well as the DynamoDB definition and associated IAM roles).
+However, once API Gateway is set up, a simple frontend reminders.html allows you to manage the Teams reminders you have created.
 
 ## Installing
 
