@@ -1,3 +1,4 @@
+// const parser = require('cron-parser');
 const text = document.getElementById("text");
 const remindersUrl = 'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders';
 
@@ -10,29 +11,35 @@ async function getReminders() {
   printTable(info);
 }
 
-function printTable(info) {
-  let table = '<table style="width:100%" id="reminders">';
-  table += '<tr>';
-  table += '<th>Reminder Message</th>';
-  table += '<th>Cron Interval</th>';
-  table += '<th>Last Time Reminder Executed</th>';
-  table += '<th>Timezone</th>';
-  // table += '<th>Id</th>';
-  table += '<th>Delete</th>';
-  table += '</tr>';
+function renderCellText(cellContent) {
+  let newCell = document.createElement('td');
+  newCell.innerText = cellContent;
+  return newCell;
+}
 
+function renderButton(id) {
+  let newCell = document.createElement('td');
+  let button = document.createElement('BUTTON');
+  button.name = id;
+  button.onclick = function() {handleDelete(this.name)};
+  button.innerHTML = 'Delete';
+  newCell.append(button);
+  return newCell;
+}
+
+function printTable(info) {
+  const table = document.getElementById('reminders');
   info.forEach(function(item) {
-    table += `<tr>`;
-    table += `<td>${item.reminderMessage}</td>`;
-    table += `<td>${item.cronInterval}</td>`;
-    table += `<td>${item.lastTimeReminderExecuted}</td>`;
-    table += `<td>${item.timeZone}</td>`;
-    // table += `<td>${item.id}</td>`;
-    table += `<td><button type="button" name=${item.id} onclick="handleDelete(name)">Delete</button></td>`;
-    table += `</tr>`;
+    const row = document.createElement('tr');
+    row.append(
+      renderCellText(item.reminderMessage),
+      renderCellText(item.cronInterval),
+      renderCellText(item.lastTimeReminderExecuted),
+      renderCellText(item.timeZone),
+      renderButton(item.id)
+    );
+    table.append(row);
   });
-  table += '</table>';
-  text.innerHTML += table;
 
   // addRowClickHandlers();
 }
