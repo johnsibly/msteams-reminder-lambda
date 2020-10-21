@@ -4,7 +4,7 @@ provider:
   runtime: nodejs10.x
   region: eu-west-2
   profile: custom-profile
-  role: arn:aws:iam::077508673229:role/LambdaDynamoDBAccess
+  role: arn:aws:iam::082876741967:role/LambdaDynamoDBAccess
 functions:
   process:
     handler: msteams-reminders-process.handler
@@ -16,20 +16,38 @@ functions:
       - schedule: cron(0/5 * * * ? *)
   put:
     handler: msteams-reminders-put.handler
-    timeout: 60
+    timeout: 30
     tags:
       Description: "Adds a reminder to DynamoDB"
       Owner: "John Sibly"
+    events:
+      - http:
+          path: reminder
+          method: put
+          cors: true
+          integration: lambda
   get:
     handler: msteams-reminders-get.handler
-    timeout: 60
+    timeout: 30
     tags:
       Description: "Queries for reminders omitting teamsChannelWebhook"
       Owner: "John Sibly"
+    events:
+      - http:
+          path: reminder
+          method: get
+          cors: true
+          integration: lambda
   delete:
     handler: msteams-reminders-delete.handler
-    timeout: 60
+    timeout: 30
     tags:
       Description: "Deletes the reminder specified by the id"
       Owner: "John Sibly"
+    events:
+      - http:
+          path: reminder
+          method: delete
+          cors: true
+          integration: lambda
 
