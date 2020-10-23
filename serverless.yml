@@ -25,7 +25,9 @@ functions:
           path: reminder
           method: put
           cors: true
-          integration: lambda
+          integration: lambda          
+          request:
+            passThrough: WHEN_NO_TEMPLATES
   get:
     handler: msteams-reminders-get.handler
     timeout: 30
@@ -50,4 +52,6 @@ functions:
           method: delete
           cors: true
           integration: lambda
+          request:
+            passThrough: WHEN_NO_TEMPLATES
 

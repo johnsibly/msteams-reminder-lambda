@@ -4,9 +4,14 @@ const uuidv4 = require('uuid/v4');
 AWS.config.update({region: `eu-west-2`});
 
 exports.handler = (event, context, callback) => {
+
+    console.log(`event: ${JSON.stringify(event)}`);
+    const body = event["body-json"];
+    console.log(`body: ${JSON.stringify(body)}`);
+
     const TableName = "msteams-reminders";
 
-    const reminder = event.body;
+    const reminder = body;
     const Item = {  "lastTimeReminderExecuted": !reminder.hasOwnProperty('lastTimeReminderExecuted') ? undefined : reminder.lastTimeReminderExecuted,
                     "cronInterval": reminder.cronInterval,
                     "reminderMessage": reminder.reminderMessage,

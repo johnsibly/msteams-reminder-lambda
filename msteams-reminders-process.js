@@ -53,7 +53,7 @@ async function processReminder(reminder) {
       
       await postReminderToTeams(reminder);
       
-      const payload = {body: reminder};
+      const payload = {"body-json": reminder};
       let lambda = new AWS.Lambda();
       let params = {
         FunctionName: 'msteams-reminders-dev-put', 

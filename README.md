@@ -46,7 +46,7 @@ Currently there are two options for adding reminders
 1. If API Gateway is set up, you can send a PUT request to the PUT endpoint, specificing the CRON syntax, message, and webhookURL
 
 ```sh
-curl -v -X PUT 'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders' -H 'content-type: application/json' -d '{"body": {"cronInterval": "0 10 * * MON", "reminderMessage": "Water the plant", "teamsChannelWebhook": "https://mywebhookurl"}}'
+curl -v -X PUT 'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders' -H 'content-type: application/json' -d '{"cronInterval": "0 10 * * MON", "reminderMessage": "Water the plant", "teamsChannelWebhook": "https://mywebhookurl"}'
 ```
 
 2. Manually add an entry to DynamoDB (risky)

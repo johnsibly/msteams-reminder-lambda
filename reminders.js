@@ -1,6 +1,6 @@
 // const parser = require('cron-parser');
 const text = document.getElementById("text");
-const remindersUrl = 'https://dlgoyn6ebc.execute-api.eu-west-2.amazonaws.com/prod/msteams-reminders';
+const remindersUrl = 'https://qpdnmvxgx3.execute-api.eu-west-2.amazonaws.com/dev/reminder';
 
 async function getReminders() {
   const Reminders = axios.get(remindersUrl)
@@ -48,15 +48,12 @@ async function handleDelete(id) {
   console.log(id)
   if (confirm("Are you sure?")) {
     try {
-      const reminder = {"body": {"id": id}};
-      console.log(reminder);
-      
-      const response = await axios.delete(remindersUrl, {
+      const response = await axios.delete(remindersUrl + `?id=${id}`, {
         headers: {
-          'content-type': 'application/json',
-        },
-        data: reminder
-      });
+          'content-type': 'application/json'
+        }
+      });  
+      
       console.log(response);
       document.body.style.cursor = "wait";
       setTimeout(function(){ location.reload(); }, 2000);
@@ -79,7 +76,7 @@ document.getElementById('submit').onclick = async function () {
   }
 
   try {
-    const reminder = {"body": {"cronInterval": cron, "reminderMessage": message, "timeZone": timeZone, "teamsChannelWebhook": webHookUrl}};
+    const reminder = {"cronInterval": cron, "reminderMessage": message, "timeZone": timeZone, "teamsChannelWebhook": webHookUrl};
     console.log(reminder);
     
     const response = await axios.put(remindersUrl, reminder, {
