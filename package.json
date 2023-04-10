@@ -5,7 +5,7 @@
   "description": "Lambdas to manage reminders and posts to Teams at a specified time",
   "main": "handler.js",
   "dependencies": {
-    "aws-sdk": "^2.617.0",
+    "aws-sdk": "^2.1354.0",
     "axios": "^0.21.2",
     "cron-parser": "^2.13.0",
     "uuid": "^3.4.0"
